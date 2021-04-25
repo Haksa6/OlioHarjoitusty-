@@ -74,10 +74,11 @@
                     tools:layout_editor_absoluteY="334dp" />
 
                 <EditText
+                    android:id="@+id/height"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="Enter height (cm)"
-                    android:inputType="number"/>
+                    android:inputType="number" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -117,15 +118,27 @@
                     tools:layout_editor_absoluteY="334dp" />
 
                 <EditText
+                    android:id="@+id/weight"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="Enter weight (kg)"
-                    android:inputType="number"/>
+                    android:inputType="number" />
 
             </LinearLayout>
 
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter" />
+
+        <TextView
+            android:id="@+id/showBMI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>
