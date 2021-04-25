@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment {
         barcode = this.view.findViewById(R.id.writeyourbarcode);
         amountml = this.view.findViewById(R.id.writeyouramount);
 
+        //Takes barcode and amount, if they're valid
         logcalories.setOnClickListener(v -> {
             bconv = barcode.getText().toString();
             aconv = amountml.getText().toString();

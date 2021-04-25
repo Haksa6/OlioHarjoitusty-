@@ -1,15 +1,14 @@
 package com.example.olioht;
 
-import android.content.Context;
+import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,25 +17,50 @@ import java.util.Objects;
 
 public class SettingsFragment extends Fragment {
 
+    Button logoutButton, setpersonal;
+    EditText height, weight;
+    TextView showBMI;
+    String BMI;
+    String heighti, weighti;
 
-
-    Button logoutButton;
-
-
-
+    View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        view = inflater.inflate(R.layout.fragment_settings, container, false);
 
 
+        height = view.findViewById(R.id.heightEt);
+        weight = view.findViewById(R.id.weightEt);
         logoutButton = view.findViewById(R.id.logout_button);
-
+        setpersonal = view.findViewById(R.id.apply);
+        showBMI = view.findViewById(R.id.showBMI);
 
         logoutButton.setOnClickListener(v -> {
             logoutUser();
+        });
+
+        
+        //Gets weight and height, if not valid gives error
+        setpersonal.setOnClickListener(v -> {
+            App App1 = new App(getContext());
+            try {
+                heighti = height.getText().toString();
+                weighti = weight.getText().toString();
+                BMI = App1.getBMI(heighti, weighti);
+                showBMI.setText(BMI);
+            } catch (NumberFormatException e) {
+                AlertDialog.Builder notValid = new AlertDialog.Builder(getContext());
+                notValid.setMessage("Height and/or weight not given");
+                notValid.setCancelable(true);
+                notValid.setPositiveButton("OK",
+                        (dialog, which) -> dialog.dismiss());
+                AlertDialog validError = notValid.create();
+                validError.show();
+            }
+
         });
 
         return view;

@@ -28,7 +28,6 @@ public class LoginTabFragment extends Fragment {
     SharedPreferences sharedPreferences;
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
@@ -39,6 +38,7 @@ public class LoginTabFragment extends Fragment {
         btnLogin = view.findViewById(R.id.login_button);
         btnRegister = view.findViewById(R.id.register_button);
 
+
         btnLogin.setOnClickListener(v -> {
             userName = etUsername.getText().toString();
             password = etPassword.getText().toString();
@@ -47,13 +47,11 @@ public class LoginTabFragment extends Fragment {
             uName = sharedPreferences.getString("userName", null);
             uPass = sharedPreferences.getString("password", null);
 
-
-
             //Check that username and password match each other in the xml file
             //If they match go to the main app, else display error message
             if(userName.equals(uName) && password.equals(uPass)){
                 Toast.makeText(getContext(), "Login", Toast.LENGTH_SHORT).show();
-                sendToActivity();
+                sendToActivity(userName);
             }else{
                 Toast.makeText(getContext(), "Incorrect username or password", Toast.LENGTH_SHORT).show();
             }
@@ -71,7 +69,7 @@ public class LoginTabFragment extends Fragment {
         this.callbackFragment = callbackFragment;
     }
 
-    public void sendToActivity(){
+    public void sendToActivity(String s){
         Intent intent = new Intent(Objects.requireNonNull(getActivity()).getBaseContext(), BottomNav.class);
         startActivity(intent);
     }

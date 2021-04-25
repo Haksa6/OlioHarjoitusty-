@@ -1,7 +1,6 @@
 package com.example.olioht;
 
 import android.content.Context;
-
 import java.io.Serializable;
 import java.util.concurrent.ExecutionException;
 
@@ -13,7 +12,7 @@ public class App implements Serializable {
     String jsonCode;
     String dateA;
     String nameA, dataAll, datalast;
-    String fcaloriesString, dataCal;
+    String fcaloriesString, dataCal, BMI;
 
     Context context;
     Date date = new Date();
@@ -77,6 +76,12 @@ public class App implements Serializable {
         Log log = new Log(context);
         dataCal = log.getCal();
         return dataCal;
+    }
+
+    public String getBMI(String height, String weight) {
+        PersonalData pd = new PersonalData();
+        BMI = pd.getBMI(height, weight);
+        return BMI;
     }
 
 }

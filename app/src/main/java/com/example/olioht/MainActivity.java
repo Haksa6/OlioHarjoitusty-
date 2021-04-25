@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements CallbackFragment 
         addFragment();
     }
 
+    //Go to login fragment
     public void addFragment(){
         LoginTabFragment fragment = new LoginTabFragment();
         fragment.setCallbackFragment(this);
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements CallbackFragment 
         fragmentTransaction.add(R.id.fragmentContainer, fragment);
         fragmentTransaction.commit();
     }
+    //Go to register fragment
     public void replaceFragment(){
         fragment = new RegisterTabFragment();
         fragmentManager = getSupportFragmentManager();

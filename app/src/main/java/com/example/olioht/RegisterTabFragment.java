@@ -24,12 +24,7 @@ public class RegisterTabFragment extends Fragment {
     String userName, password, confirmPassword;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    //@Override
-    //public void onAttach(@NonNull Context context) {
-        //sharedPreferences = context.getSharedPreferences("usersFile", Context.MODE_PRIVATE);
-        //editor = sharedPreferences.edit();
-        //super.onAttach(context);
-    //}
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
@@ -40,10 +35,14 @@ public class RegisterTabFragment extends Fragment {
         btnRegister = view.findViewById(R.id.register_button2);
         PasswordStrength strength = new PasswordStrength();
 
+
+
         btnRegister.setOnClickListener(v -> {
             userName = etUsername.getText().toString();
             password = etPassword.getText().toString();
             confirmPassword = etConfirmPass.getText().toString();
+
+            //Check password strength
             switch (strength.getStrongNess(password, confirmPassword)) {
                 case "TOO SHORT":
                     Toast.makeText(getContext(), "The password needs to be at least 12 characters long", Toast.LENGTH_SHORT).show();
@@ -64,6 +63,7 @@ public class RegisterTabFragment extends Fragment {
                     Toast.makeText(getContext(), "The passwords don't match", Toast.LENGTH_SHORT).show();
                     break;
                 default:
+                    //Saves username and password to XML file
                     sharedPreferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences("User: "+ userName, Context.MODE_PRIVATE);
                     editor = sharedPreferences.edit();
                     editor.putString("userName", userName);
