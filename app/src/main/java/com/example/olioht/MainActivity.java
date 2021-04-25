@@ -3,48 +3,52 @@ package com.example.olioht;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CallbackFragment {
+    Fragment fragment;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
-
-        //Keeps the selected fragment when rotating the device
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragments,
-                    new SettingsFragment()).commit();
-        }
+        addFragment();
     }
-    private final BottomNavigationView.OnNavigationItemSelectedListener navListener =
-           new BottomNavigationView.OnNavigationItemSelectedListener(){
-        @Override
-               public boolean onNavigationItemSelected(@NonNull MenuItem item){
-            Fragment selectedFragment = null;
 
-            switch(item.getItemId()){
-                case R.id.nav_settings:
-                    selectedFragment = new SettingsFragment();
-                    break;
-                case R.id.nav_home:
-                    selectedFragment = new HomeFragment();
-                    break;
-                case R.id.nav_achievements:
-                    selectedFragment = new AchievementsFragment();
-                    break;
-            }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragments,
-                    selectedFragment).commit();
-            return true;
-        }
-    };
+    public void addFragment(){
+        LoginTabFragment fragment = new LoginTabFragment();
+        fragment.setCallbackFragment(this);
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragmentContainer, fragment);
+        fragmentTransaction.commit();
+    }
+    public void replaceFragment(){
+        fragment = new RegisterTabFragment();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.add(R.id.fragmentContainer, fragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();;
+    }
+
+    @Override
+    public void changeFragment() {
+        replaceFragment();
+    }
 
 }

@@ -10,9 +10,9 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:title="Home" />
     <item
-        android:id="@+id/nav_achievements"
+        android:id="@+id/nav_results"
         android:icon="@drawable/ic_baseline_star_rate_24"
-        android:title="Achievements" />
+        android:title="Results" />
 
 
 </menu>
