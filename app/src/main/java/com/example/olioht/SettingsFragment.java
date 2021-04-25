@@ -42,7 +42,7 @@ public class SettingsFragment extends Fragment {
             logoutUser();
         });
 
-        
+
         //Gets weight and height, if not valid gives error
         setpersonal.setOnClickListener(v -> {
             App App1 = new App(getContext());
